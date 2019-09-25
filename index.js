@@ -13,7 +13,11 @@ const data = {}
 
 const getUserData = (req) => {
   const { user } = req.params
-  if (!data[user]) data[user] = []
+  if (!data[user]) data[user] = [
+    { name: "Recette 1", description: 'Description de le recette 1', id: uuid(), note: 4 },
+    { name: "Recette 2", description: 'Description de le recette 2', id: uuid(), note: 2 },
+    { name: "Recette 3", description: 'Description de le recette 3', id: uuid(), note: 4.5 },
+  ]
   return data[user]
 }
 
@@ -45,7 +49,7 @@ app.put('/:user/recettes/:id', (req, res) => {
 app.delete('/:user/recettes/:id', (req, res) => {
   const { id } = req.params
   const index = getUserData(req).findIndex(recette => recette.id === id)
-  if(index === -1) res.sendStatus(404)
+  if (index === -1) res.sendStatus(404)
   res.json(getUserData(req).splice(index, 1)[0])
 })
 
