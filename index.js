@@ -14,9 +14,9 @@ const data = {}
 const getUserData = (req) => {
   const { user } = req.params
   if (!data[user]) data[user] = [
-    { name: "Recette 1", description: 'Description de le recette 1', id: uuid(), note: 4 },
-    { name: "Recette 2", description: 'Description de le recette 2', id: uuid(), note: 2 },
-    { name: "Recette 3", description: 'Description de le recette 3', id: uuid(), note: 4.5 },
+    { name: "Recette 1", description: 'Description de le recette 1', id: uuid(), note: 4, ingredients: ['Tomates'] },
+    { name: "Recette 2", description: 'Description de le recette 2', id: uuid(), note: 2, ingredients: ['Patates'] },
+    { name: "Recette 3", description: 'Description de le recette 3', id: uuid(), note: 4.5, ingredients: ['Lentilles'] },
   ]
   return data[user]
 }
