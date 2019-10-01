@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "deploy": "git push clever HEAD:master"
   },
   "main": "index.js",
   "dependencies": {
