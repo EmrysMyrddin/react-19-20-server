@@ -1,3 +1,5 @@
+const uuid = require('uuid')
+
 const crud = (app, getUserData) => entity => {
   app.get(`/:user/${entity}`, (req, res) => {
     res.json(getUserData(req)[entity])
