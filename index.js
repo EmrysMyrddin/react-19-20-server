@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const uuid = require('uuid')
 const cors = require('cors')
+const slowdown = require('express-slow-down')
 const makeCrud = require('./crud')
 
 const app = express()
@@ -9,6 +10,16 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(morgan('tiny'))
+
+app.enable("trust proxy")
+app.use('/:user', slowdown({
+  windowMs: process.env.SLOWDOWN_WINDOW_MS || 20 * 1000,
+  delayAfter: process.env.SLOWDOWN_DELAY_AFTER || 5,
+  delayMs: process.env.SLOWDOWN_DELAY_MS || 500,
+  maxDelayMs: process.env.SLOWDOWN_MAC_DELAY_MS || 3 * 1000,
+  keyGenerator: req =>  req.params.user,
+  onLimitReached: req => console.warn(`${req.params.user} has reached the rate limit !`),
+}))
 
 const data = {}
 
